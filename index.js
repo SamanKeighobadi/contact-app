@@ -1,7 +1,8 @@
 const yargs = require("yargs");
 
-const { addContact } = require("./contacts");
+const { addContact,listContacts } = require("./contacts");
 
+// Create new contact commad 
 yargs.command({
     aliases:['c'],
   command: "create",
@@ -30,6 +31,19 @@ yargs.command({
     addContact(fullname, phone, email);
   },
 });
+
+// Listing exit contacts command
+yargs.command = ({
+    command:'list',
+    aliases:['l'],
+    describe:'[List of Contacts]',
+    handler() {
+        listContacts()
+    }
+})
+
+// Remove Contacts command
+
 
 yargs.parse();
 
