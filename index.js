@@ -9,5 +9,6 @@ const persons = [
 // fs.writeFileSync('contact.json',JSON.stringify(persons))
 
 const data = fs.readFileSync('contact.json')
-const p 
 console.log(JSON.parse(data.toString()))
+
+process.ar
