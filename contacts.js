@@ -25,24 +25,37 @@ saveContacts = (contacts) => {
 };
 
 // listing exsit contacts
-const listContacts= () => {
-    const contacts = loadContacts();
-    if(contacts.length > 0) {
-        console.log(chalk.yellow('your contacts: \n'))
-        contacts.forEach(contact => {
-            console.log(`\t ${chalk.green('Fullname')}: ${contact.fullname}`)
-            console.log(`\t ${chalk.green('Phone')}: ${contact.phone}`)
-            console.log(`\t ${chalk.green('Email')}: ${contact.email}`)
-            console.log(chalk.blueBright('\t------------'))
-        })
-    }else{
-        console.log(chalk.redBright('No Contact available'))
-    }
-}
+const listContacts = () => {
+  const contacts = loadContacts();
+  if (contacts.length > 0) {
+    console.log(chalk.yellow("Your contacts: \n"));
+    contacts.forEach((contact) => {
+      console.log(`\t ${chalk.green("Fullname")}: ${contact.fullname}`);
+      console.log(`\t ${chalk.green("Phone")}: ${contact.phone}`);
+      console.log(`\t ${chalk.green("Email")}: ${contact.email}`);
+      console.log(chalk.redBright("\t------------------"));
+    });
+  } else {
+    console.log(chalk.redBright("No Contact available"));
+  }
+};
 
-const removeContacts = () => {}
+const removeContacts = (fullname) => {
+  const contacts = loadContacts();
+  const filteredContacts = contacts.filter(
+    (contact) => contact.fullname !== fullname
+  );
 
-// Read contact.json file 
+  if(contacts.length > filteredContacts.length) {
+      saveContacts(filteredContacts)
+      console.log(chalk.greenBright("Contact succefully removed"))
+  }else {
+      console.log(chalk.redBright("Contact Not found!"))
+  }
+
+};
+
+// Read contact.json file
 const loadContacts = () => {
   try {
     const dataBuffer = fs.readFileSync("contact.json");
@@ -56,6 +69,6 @@ const loadContacts = () => {
 
 module.exports = {
   addContact,
-  listContacts
+  listContacts,
+  removeContacts,
 };
-
