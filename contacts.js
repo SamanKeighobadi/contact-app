@@ -10,11 +10,17 @@ const addContact = (fullname, phone, email) => {
 
   if (!duplicateContact) {
     contacts.push({ fullname, phone, email });
+    saveContacts(contacts)
     console.log(chalk.green("Contact Saved"));
   } else {
     console.log(chalk.red("Contact already exist"));
   }
 };
+
+saveContacts = contacts => {
+    const data = JSON.stringify(contacts);
+    fs.writeFileSync('contact.json',data)
+}
 
 const loadContacts = () => {
   try {
