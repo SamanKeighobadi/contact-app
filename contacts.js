@@ -3,10 +3,17 @@ const fs = require("fs");
 const chalk = require("chalk");
 
 const addContact = (fullname, phone, email) => {
-    const contacts = loadContacts()
+  const contacts = loadContacts();
+  const duplicateContact = contacts.find(
+    (contact) => contact.fullname === fullname
+  );
 
-    contacts.push({fullname,phone,email})
-    console.log(chalk.green('Contact Saved'))
+  if (!duplicateContact) {
+    contacts.push({ fullname, phone, email });
+    console.log(chalk.green("Contact Saved"));
+  } else {
+    console.log(chalk.red("Contact already exist"));
+  }
 };
 
 const loadContacts = () => {
@@ -21,5 +28,5 @@ const loadContacts = () => {
 };
 
 module.exports = {
-    addContact
+  addContact,
 };
